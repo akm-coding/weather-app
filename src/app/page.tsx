@@ -4,6 +4,9 @@ import { useEffect } from "react";
 import Navbar from "../components/Navbar";
 import axios from "axios";
 import { useQuery } from "react-query";
+import { format, parseISO } from "date-fns";
+import Container from "@/components/Container";
+import { convertKelvinToCelsius } from "@/utils/convertKelvinToCelcius";
 
 interface WeatherDetail {
   dt: number;
@@ -71,6 +74,8 @@ export default function Home() {
     }
   );
 
+  const firstDate = data?.list[0];
+
   if (isLoading)
     return (
       <div className="flex items-center min-h-screen justify-center">
@@ -85,8 +90,19 @@ export default function Home() {
         <section>
           <div>
             <h2 className="flex gap-1 text-2xl items-end">
-              <p></p>
+              <p>{format(parseISO(firstDate?.dt_txt ?? ""), "EEEE")}</p>
+              <p className="text-lg">
+                ({format(parseISO(firstDate?.dt_txt ?? ""), "dd.MM.yyyy")})
+              </p>
             </h2>
+            <Container className="gap-10 px-6 items-center">
+              <div className="flex flex-col px-4">
+                <span className="text-5xl">
+                  {convertKelvinToCelsius(firstDate?.main.temp ?? 269.37)}°
+                </span>
+                <p className="text-xs space-x-1 whitespace-nowrap"></p>
+              </div>
+            </Container>
           </div>
         </section>
         <section></section>
