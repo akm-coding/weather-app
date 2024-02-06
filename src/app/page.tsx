@@ -100,7 +100,7 @@ export default function Home() {
                 <span className="text-5xl">
                   {convertKelvinToCelsius(firstDate?.main.temp ?? 269.37)}°
                 </span>
-                <p className="text-xs space-x-1 whitespace-nowrap"></p>
+                <p className="text-xs space-x-1 whitespace-nowrap">Weather</p>
               </div>
             </Container>
           </div>
